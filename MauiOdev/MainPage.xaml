@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiOdev.MainPage"
+             x:Name="ThisPage"
+             BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <ContentPage.Resources>
+        <!-- Gündüz ve Gece Modu Renk Tanımlamaları -->
+        <ResourceDictionary>
+            <Color x:Key="LightBackground">#F4F7F6</Color>
+            <Color x:Key="DarkBackground">#121212</Color>
+
+            <Color x:Key="LightCardBackground">White</Color>
+            <Color x:Key="DarkCardBackground">#1E1E1E</Color>
+
+            <Color x:Key="LightTextColor">#2C3E50</Color>
+            <Color x:Key="DarkTextColor">#E0E0E0</Color>
+
+            <Color x:Key="LightSubTextColor">#7F8C8D</Color>
+            <Color x:Key="DarkSubTextColor">#A0A0A0</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <!-- Üst Bar: Gece Modu Switch'i -->
+            <Grid Padding="20,10,20,0" ColumnDefinitions="*, Auto" VerticalOptions="Start">
+                <Label Text="Geliştirici Kayıt" FontSize="20" FontAttributes="Bold" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" Grid.Column="0"/>
+                <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                    <Label Text="Gece Modu" FontSize="14" TextColor="{DynamicResource TextColor}" VerticalOptions="Center"/>
+                    <Switch x:Name="ThemeSwitch" Toggled="OnThemeSwitchToggled" OnColor="#2980B9" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- Ana Kart Tasarımı -->
+            <Frame x:Name="MainCard"
+                   HasShadow="True" 
+                   CornerRadius="20" 
+                   BackgroundColor="{DynamicResource CardBackground}" 
+                   Padding="25" 
+                   Margin="20,20,20,40">
+
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- Profil Başlığı -->
+                    <Label Text="Profil Bilgileri" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="{DynamicResource TextColor}" 
+                           HorizontalOptions="Center" />
+
+                    <BoxView HeightRequest="1" Color="#E0E0E0" Margin="0,-5,0,5"/>
+
+                    <!-- ENTRY: Metin Girişi -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Ad Soyad" FontSize="14" TextColor="{DynamicResource SubTextColor}" FontAttributes="Bold"/>
+                        <Frame CornerRadius="10" Padding="15,0" BorderColor="#BDC3C7" BackgroundColor="Transparent" HasShadow="False" HeightRequest="50">
+                            <Entry x:Name="NameEntry" 
+                                   Placeholder="Örn: Mikail Yıldız" 
+                                   TextColor="{DynamicResource TextColor}" 
+                                   ClearButtonVisibility="WhileEditing" 
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- YENİ: PICKER (Açılır Menü) -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Uzmanlık Alanı" FontSize="14" TextColor="{DynamicResource SubTextColor}" FontAttributes="Bold"/>
+                        <Frame CornerRadius="10" Padding="15,0" BorderColor="#BDC3C7" BackgroundColor="Transparent" HasShadow="False" HeightRequest="50">
+                            <Picker x:Name="ExpertisePicker" 
+                                    Title="Alan Seçiniz" 
+                                    TextColor="{DynamicResource TextColor}" 
+                                    VerticalOptions="Center">
+                                <Picker.Items>
+                                    <x:String>Yazılım Mühendisliği</x:String>
+                                    <x:String>Mobil Uygulama (MAUI)</x:String>
+                                    <x:String>Siber Güvenlik</x:String>
+                                    <x:String>Oyun Geliştirme</x:String>
+                                    <x:String>Yapay Zeka</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- STEPPER: Yaş Seçimi -->
+                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                        <Label x:Name="AgeLabel" Text="Yaş: 22" FontSize="16" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" Grid.Column="0"/>
+                        <Stepper x:Name="AgeStepper" Minimum="15" Maximum="80" Increment="1" Value="22" ValueChanged="OnAgeStepperValueChanged" Grid.Column="1"/>
+                    </Grid>
+
+                    <!-- SLIDER: Yazılım Memnuniyeti -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label x:Name="ScoreLabel" Text="Yazılım Tutkusu: %50" FontSize="16" TextColor="{DynamicResource TextColor}"/>
+                        <Slider x:Name="ScoreSlider" 
+                                Minimum="0" 
+                                Maximum="100" 
+                                Value="50" 
+                                MinimumTrackColor="#3498DB" 
+                                MaximumTrackColor="#E0E0E0" 
+                                ThumbColor="#2980B9" 
+                                ValueChanged="OnScoreSliderValueChanged"/>
+                    </VerticalStackLayout>
+
+                    <!-- BUTTON: Modern Buton -->
+                    <Button x:Name="SubmitButton" 
+                            Text="Profili Tamamla" 
+                            Clicked="OnSubmitButtonClicked" 
+                            BackgroundColor="#2ECC71" 
+                            TextColor="White" 
+                            FontSize="18" 
+                            FontAttributes="Bold" 
+                            CornerRadius="12" 
+                            HeightRequest="55" 
+                            Margin="0,10,0,0"/>
+
+                    <!-- LABEL: Sonuç -->
+                    <Label x:Name="ResultLabel" 
+                           FontSize="16" 
+                           TextColor="#27AE60" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center" 
+                           Opacity="0" />
+
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
